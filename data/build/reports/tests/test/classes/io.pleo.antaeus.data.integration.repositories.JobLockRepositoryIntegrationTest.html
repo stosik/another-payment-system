@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="x-ua-compatible" content="IE=edge"/>
+<title>Test results - JobLockRepositoryIntegrationTest</title>
+<link href="../css/base-style.css" rel="stylesheet" type="text/css"/>
+<link href="../css/style.css" rel="stylesheet" type="text/css"/>
+<script src="../js/report.js" type="text/javascript"></script>
+</head>
+<body>
+<div id="content">
+<h1>JobLockRepositoryIntegrationTest</h1>
+<div class="breadcrumbs">
+<a href="../index.html">all</a> &gt; 
+<a href="../packages/io.pleo.antaeus.data.integration.repositories.html">io.pleo.antaeus.data.integration.repositories</a> &gt; JobLockRepositoryIntegrationTest</div>
+<div id="summary">
+<table>
+<tr>
+<td>
+<div class="summaryGroup">
+<table>
+<tr>
+<td>
+<div class="infoBox" id="tests">
+<div class="counter">3</div>
+<p>tests</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="failures">
+<div class="counter">0</div>
+<p>failures</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="ignored">
+<div class="counter">0</div>
+<p>ignored</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="duration">
+<div class="counter">0.155s</div>
+<p>duration</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</td>
+<td>
+<div class="infoBox success" id="successRate">
+<div class="percent">100%</div>
+<p>successful</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div id="tabs">
+<ul class="tabLinks">
+<li>
+<a href="#tab0">Tests</a>
+</li>
+<li>
+<a href="#tab1">Standard output</a>
+</li>
+<li>
+<a href="#tab2">Standard error</a>
+</li>
+</ul>
+<div id="tab0" class="tab">
+<h2>Tests</h2>
+<table>
+<thead>
+<tr>
+<th>Test</th>
+<th>Duration</th>
+<th>Result</th>
+</tr>
+</thead>
+<tr>
+<td class="success">should acquire lock()</td>
+<td class="success">0.027s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">should release all locks of running service instance()</td>
+<td class="success">0.043s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">should release lock()</td>
+<td class="success">0.085s</td>
+<td class="success">passed</td>
+</tr>
+</table>
+</div>
+<div id="tab1" class="tab">
+<h2>Standard output</h2>
+<span class="code">
+<pre>SQL: DROP TABLE IF EXISTS joblock
+SQL: DROP TABLE IF EXISTS invoice
+SQL: DROP TABLE IF EXISTS customer
+SQL: CREATE TABLE IF NOT EXISTS customer (id SERIAL, currency VARCHAR(3) NOT NULL, CONSTRAINT pk_customer_id PRIMARY KEY (id))
+SQL: CREATE TABLE IF NOT EXISTS invoice (id SERIAL, currency VARCHAR(3) NOT NULL, &quot;value&quot; DECIMAL(1000, 2) NOT NULL, customer_id INT NOT NULL, status TEXT NOT NULL, CONSTRAINT pk_invoice_id PRIMARY KEY (id), CONSTRAINT fk_invoice_customer_id__id FOREIGN KEY (customer_id) REFERENCES customer(id) ON DELETE RESTRICT ON UPDATE RESTRICT)
+SQL: CREATE INDEX idx_invoice_status ON invoice (status)
+SQL: CREATE TABLE IF NOT EXISTS joblock (id SERIAL, &quot;name&quot; VARCHAR(128) NOT NULL, &quot;locked&quot; BOOLEAN NOT NULL, CONSTRAINT pk_job_lock_id PRIMARY KEY (id))
+SQL: ALTER TABLE joblock ADD CONSTRAINT joblock_name_unique UNIQUE (&quot;name&quot;)
+SQL: DROP TABLE IF EXISTS joblock
+SQL: DROP TABLE IF EXISTS invoice
+SQL: DROP TABLE IF EXISTS customer
+SQL: CREATE TABLE IF NOT EXISTS customer (id SERIAL, currency VARCHAR(3) NOT NULL, CONSTRAINT pk_customer_id PRIMARY KEY (id))
+SQL: CREATE TABLE IF NOT EXISTS invoice (id SERIAL, currency VARCHAR(3) NOT NULL, &quot;value&quot; DECIMAL(1000, 2) NOT NULL, customer_id INT NOT NULL, status TEXT NOT NULL, CONSTRAINT pk_invoice_id PRIMARY KEY (id), CONSTRAINT fk_invoice_customer_id__id FOREIGN KEY (customer_id) REFERENCES customer(id) ON DELETE RESTRICT ON UPDATE RESTRICT)
+SQL: CREATE INDEX idx_invoice_status ON invoice (status)
+SQL: CREATE TABLE IF NOT EXISTS joblock (id SERIAL, &quot;name&quot; VARCHAR(128) NOT NULL, &quot;locked&quot; BOOLEAN NOT NULL, CONSTRAINT pk_job_lock_id PRIMARY KEY (id))
+SQL: ALTER TABLE joblock ADD CONSTRAINT joblock_name_unique UNIQUE (&quot;name&quot;)
+SQL: DROP TABLE IF EXISTS joblock
+SQL: DROP TABLE IF EXISTS invoice
+SQL: DROP TABLE IF EXISTS customer
+SQL: CREATE TABLE IF NOT EXISTS customer (id SERIAL, currency VARCHAR(3) NOT NULL, CONSTRAINT pk_customer_id PRIMARY KEY (id))
+SQL: CREATE TABLE IF NOT EXISTS invoice (id SERIAL, currency VARCHAR(3) NOT NULL, &quot;value&quot; DECIMAL(1000, 2) NOT NULL, customer_id INT NOT NULL, status TEXT NOT NULL, CONSTRAINT pk_invoice_id PRIMARY KEY (id), CONSTRAINT fk_invoice_customer_id__id FOREIGN KEY (customer_id) REFERENCES customer(id) ON DELETE RESTRICT ON UPDATE RESTRICT)
+SQL: CREATE INDEX idx_invoice_status ON invoice (status)
+SQL: CREATE TABLE IF NOT EXISTS joblock (id SERIAL, &quot;name&quot; VARCHAR(128) NOT NULL, &quot;locked&quot; BOOLEAN NOT NULL, CONSTRAINT pk_job_lock_id PRIMARY KEY (id))
+SQL: ALTER TABLE joblock ADD CONSTRAINT joblock_name_unique UNIQUE (&quot;name&quot;)
+</pre>
+</span>
+</div>
+<div id="tab2" class="tab">
+<h2>Standard error</h2>
+<span class="code">
+<pre>[Test worker] INFO tc.postgres:15.2 - Creating container for image: postgres:15.2
+[Test worker] INFO tc.postgres:15.2 - Container postgres:15.2 is starting: 277c209d78cf0603b10e2d14bf6d357a6e0bc02acf8968102547057b77b19883
+[Test worker] INFO tc.postgres:15.2 - Container postgres:15.2 started in PT1.027989S
+[Test worker] INFO tc.postgres:15.2 - Container is started (JDBC URL: jdbc:postgresql://localhost:54264/test?loggerLevel=OFF)
+[Test worker] INFO com.zaxxer.hikari.HikariDataSource - HikariPool-4 - Starting...
+[Test worker] INFO com.zaxxer.hikari.pool.HikariPool - HikariPool-4 - Added connection org.postgresql.jdbc.PgConnection@535a518c
+[Test worker] INFO com.zaxxer.hikari.HikariDataSource - HikariPool-4 - Start completed.
+[Test worker] WARN Exposed - Keyword identifier used: 'value'. Case sensitivity may not be kept when quoted by default: 'value'. To keep case sensitivity, opt-in and set 'preserveKeywordCasing' to true in DatabaseConfig block.
+[Test worker] WARN Exposed - Keyword identifier used: 'name'. Case sensitivity may not be kept when quoted by default: 'name'. To keep case sensitivity, opt-in and set 'preserveKeywordCasing' to true in DatabaseConfig block.
+[Test worker] WARN Exposed - Keyword identifier used: 'locked'. Case sensitivity may not be kept when quoted by default: 'locked'. To keep case sensitivity, opt-in and set 'preserveKeywordCasing' to true in DatabaseConfig block.
+[Test worker] INFO com.zaxxer.hikari.HikariDataSource - HikariPool-5 - Starting...
+[Test worker] INFO com.zaxxer.hikari.pool.HikariPool - HikariPool-5 - Added connection org.postgresql.jdbc.PgConnection@38fb50f8
+[Test worker] INFO com.zaxxer.hikari.HikariDataSource - HikariPool-5 - Start completed.
+[Test worker] WARN Exposed - Keyword identifier used: 'value'. Case sensitivity may not be kept when quoted by default: 'value'. To keep case sensitivity, opt-in and set 'preserveKeywordCasing' to true in DatabaseConfig block.
+[Test worker] WARN Exposed - Keyword identifier used: 'name'. Case sensitivity may not be kept when quoted by default: 'name'. To keep case sensitivity, opt-in and set 'preserveKeywordCasing' to true in DatabaseConfig block.
+[Test worker] WARN Exposed - Keyword identifier used: 'locked'. Case sensitivity may not be kept when quoted by default: 'locked'. To keep case sensitivity, opt-in and set 'preserveKeywordCasing' to true in DatabaseConfig block.
+[Test worker] INFO com.zaxxer.hikari.HikariDataSource - HikariPool-6 - Starting...
+[Test worker] INFO com.zaxxer.hikari.pool.HikariPool - HikariPool-6 - Added connection org.postgresql.jdbc.PgConnection@70ede57d
+[Test worker] INFO com.zaxxer.hikari.HikariDataSource - HikariPool-6 - Start completed.
+[Test worker] WARN Exposed - Keyword identifier used: 'value'. Case sensitivity may not be kept when quoted by default: 'value'. To keep case sensitivity, opt-in and set 'preserveKeywordCasing' to true in DatabaseConfig block.
+[Test worker] WARN Exposed - Keyword identifier used: 'name'. Case sensitivity may not be kept when quoted by default: 'name'. To keep case sensitivity, opt-in and set 'preserveKeywordCasing' to true in DatabaseConfig block.
+[Test worker] WARN Exposed - Keyword identifier used: 'locked'. Case sensitivity may not be kept when quoted by default: 'locked'. To keep case sensitivity, opt-in and set 'preserveKeywordCasing' to true in DatabaseConfig block.
+</pre>
+</span>
+</div>
+</div>
+<div id="footer">
+<p>
+<div>
+<label class="hidden" id="label-for-line-wrapping-toggle" for="line-wrapping-toggle">Wrap lines
+<input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
+</label>
+</div>Generated by 
+<a href="http://www.gradle.org">Gradle 7.2</a> at Dec 26, 2023, 11:35:54 PM</p>
+</div>
+</div>
+</body>
+</html>

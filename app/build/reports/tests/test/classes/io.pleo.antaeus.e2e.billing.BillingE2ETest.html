@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="x-ua-compatible" content="IE=edge"/>
+<title>Test results - BillingE2ETest</title>
+<link href="../css/base-style.css" rel="stylesheet" type="text/css"/>
+<link href="../css/style.css" rel="stylesheet" type="text/css"/>
+<script src="../js/report.js" type="text/javascript"></script>
+</head>
+<body>
+<div id="content">
+<h1>BillingE2ETest</h1>
+<div class="breadcrumbs">
+<a href="../index.html">all</a> &gt; 
+<a href="../packages/io.pleo.antaeus.e2e.billing.html">io.pleo.antaeus.e2e.billing</a> &gt; BillingE2ETest</div>
+<div id="summary">
+<table>
+<tr>
+<td>
+<div class="summaryGroup">
+<table>
+<tr>
+<td>
+<div class="infoBox" id="tests">
+<div class="counter">1</div>
+<p>tests</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="failures">
+<div class="counter">0</div>
+<p>failures</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="ignored">
+<div class="counter">0</div>
+<p>ignored</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="duration">
+<div class="counter">17.088s</div>
+<p>duration</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</td>
+<td>
+<div class="infoBox success" id="successRate">
+<div class="percent">100%</div>
+<p>successful</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div id="tabs">
+<ul class="tabLinks">
+<li>
+<a href="#tab0">Tests</a>
+</li>
+<li>
+<a href="#tab1">Standard output</a>
+</li>
+<li>
+<a href="#tab2">Standard error</a>
+</li>
+</ul>
+<div id="tab0" class="tab">
+<h2>Tests</h2>
+<table>
+<thead>
+<tr>
+<th>Test</th>
+<th>Duration</th>
+<th>Result</th>
+</tr>
+</thead>
+<tr>
+<td class="success">should bill pending invoices()</td>
+<td class="success">17.088s</td>
+<td class="success">passed</td>
+</tr>
+</table>
+</div>
+<div id="tab1" class="tab">
+<h2>Standard output</h2>
+<span class="code">
+<pre>SQL: DROP TABLE IF EXISTS joblock
+SQL: DROP TABLE IF EXISTS invoice
+SQL: DROP TABLE IF EXISTS customer
+SQL: CREATE TABLE IF NOT EXISTS customer (id SERIAL, currency VARCHAR(3) NOT NULL, CONSTRAINT pk_customer_id PRIMARY KEY (id))
+SQL: CREATE TABLE IF NOT EXISTS invoice (id SERIAL, currency VARCHAR(3) NOT NULL, &quot;value&quot; DECIMAL(1000, 2) NOT NULL, customer_id INT NOT NULL, status TEXT NOT NULL, CONSTRAINT pk_invoice_id PRIMARY KEY (id), CONSTRAINT fk_invoice_customer_id__id FOREIGN KEY (customer_id) REFERENCES customer(id) ON DELETE RESTRICT ON UPDATE RESTRICT)
+SQL: CREATE INDEX idx_invoice_status ON invoice (status)
+SQL: CREATE TABLE IF NOT EXISTS joblock (id SERIAL, &quot;name&quot; VARCHAR(128) NOT NULL, &quot;locked&quot; BOOLEAN NOT NULL, CONSTRAINT pk_job_lock_id PRIMARY KEY (id))
+SQL: ALTER TABLE joblock ADD CONSTRAINT joblock_name_unique UNIQUE (&quot;name&quot;)
+</pre>
+</span>
+</div>
+<div id="tab2" class="tab">
+<h2>Standard error</h2>
+<span class="code">
+<pre>[Test worker @kotlinx.coroutines.test runner#2] INFO org.testcontainers.images.PullPolicy - Image pull policy will be performed by: DefaultPullPolicy()
+[Test worker @kotlinx.coroutines.test runner#2] INFO org.testcontainers.utility.ImageNameSubstitutor - Image name substitution will be performed by: DefaultImageNameSubstitutor (composite of 'ConfigurationFileImageNameSubstitutor' and 'PrefixingImageNameSubstitutor')
+[testcontainers-lifecycle-0] INFO org.testcontainers.dockerclient.DockerClientProviderStrategy - Loaded org.testcontainers.dockerclient.UnixSocketClientProviderStrategy from ~/.testcontainers.properties, will try it first
+[testcontainers-lifecycle-0] INFO org.testcontainers.dockerclient.DockerClientProviderStrategy - Found Docker environment with local Unix socket (unix:///var/run/docker.sock)
+[testcontainers-lifecycle-0] INFO org.testcontainers.DockerClientFactory - Docker host IP address is localhost
+[testcontainers-lifecycle-0] INFO org.testcontainers.DockerClientFactory - Connected to docker: 
+  Server Version: 24.0.6
+  API Version: 1.43
+  Operating System: Docker Desktop
+  Total Memory: 7844 MB
+[testcontainers-lifecycle-0] INFO tc.testcontainers/ryuk:0.5.1 - Creating container for image: testcontainers/ryuk:0.5.1
+[testcontainers-lifecycle-0] INFO tc.testcontainers/ryuk:0.5.1 - Container testcontainers/ryuk:0.5.1 is starting: df910b60aacaf31b66179a45f4cbabf4c104bc28bef59e08d81458ec844ef394
+[testcontainers-lifecycle-0] INFO tc.testcontainers/ryuk:0.5.1 - Container testcontainers/ryuk:0.5.1 started in PT0.68312S
+[testcontainers-lifecycle-0] INFO org.testcontainers.utility.RyukResourceReaper - Ryuk started - will monitor and terminate Testcontainers containers on JVM exit
+[testcontainers-lifecycle-0] INFO org.testcontainers.DockerClientFactory - Checking the system...
+[testcontainers-lifecycle-0] INFO org.testcontainers.DockerClientFactory - ✔︎ Docker server version should be at least 1.6.0
+[testcontainers-lifecycle-0] INFO tc.postgres:15.2 - Creating container for image: postgres:15.2
+[testcontainers-lifecycle-1] INFO tc.confluentinc/cp-kafka:7.2.6 - Creating container for image: confluentinc/cp-kafka:7.2.6
+[testcontainers-lifecycle-1] WARN tc.confluentinc/cp-kafka:7.2.6 - Reuse was requested but the environment does not support the reuse of containers
+To enable reuse of containers, you must set 'testcontainers.reuse.enable=true' in a file located at /Users/szymontosik/.testcontainers.properties
+[testcontainers-lifecycle-0] INFO tc.postgres:15.2 - Container postgres:15.2 is starting: c103ec91b5bb3e7f4e4429c88b7a62bcd1650584cbb817d006fa5db4346a9fd8
+[testcontainers-lifecycle-1] INFO tc.confluentinc/cp-kafka:7.2.6 - Container confluentinc/cp-kafka:7.2.6 is starting: 9929006d2f41807394df373cc4e795ecd3870367a6e03ad0c584894d7673ad66
+[testcontainers-lifecycle-0] INFO tc.postgres:15.2 - Container postgres:15.2 started in PT2.022637S
+[testcontainers-lifecycle-0] INFO tc.postgres:15.2 - Container is started (JDBC URL: jdbc:postgresql://localhost:54215/test?loggerLevel=OFF)
+[testcontainers-lifecycle-1] INFO tc.confluentinc/cp-kafka:7.2.6 - Container confluentinc/cp-kafka:7.2.6 started in PT4.394473S
+[Test worker @kotlinx.coroutines.test runner#2] INFO com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+[Test worker @kotlinx.coroutines.test runner#2] INFO com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@12e5da86
+[Test worker @kotlinx.coroutines.test runner#2] INFO com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+[Test worker @kotlinx.coroutines.test runner#2] WARN Exposed - Keyword identifier used: 'value'. Case sensitivity may not be kept when quoted by default: 'value'. To keep case sensitivity, opt-in and set 'preserveKeywordCasing' to true in DatabaseConfig block.
+[Test worker @kotlinx.coroutines.test runner#2] WARN Exposed - Keyword identifier used: 'name'. Case sensitivity may not be kept when quoted by default: 'name'. To keep case sensitivity, opt-in and set 'preserveKeywordCasing' to true in DatabaseConfig block.
+[Test worker @kotlinx.coroutines.test runner#2] WARN Exposed - Keyword identifier used: 'locked'. Case sensitivity may not be kept when quoted by default: 'locked'. To keep case sensitivity, opt-in and set 'preserveKeywordCasing' to true in DatabaseConfig block.
+[DefaultDispatcher-worker-1 @coroutine#3] INFO io.pleo.antaeus.messaging.kafka.base.sink.KafkaEventConsumer - Starting kafka consumer for topic pleo.invoice.charge
+[Test worker @kotlinx.coroutines.test runner#2] INFO org.quartz.impl.StdSchedulerFactory - Using default implementation for ThreadExecutor
+[Test worker @kotlinx.coroutines.test runner#2] INFO org.quartz.simpl.SimpleThreadPool - Job execution threads will use class loader of thread: Test worker @kotlinx.coroutines.test runner#2
+[Test worker @kotlinx.coroutines.test runner#2] INFO org.quartz.core.SchedulerSignalerImpl - Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+[Test worker @kotlinx.coroutines.test runner#2] INFO org.quartz.core.QuartzScheduler - Quartz Scheduler v.2.3.2 created.
+[Test worker @kotlinx.coroutines.test runner#2] INFO org.quartz.simpl.RAMJobStore - RAMJobStore initialized.
+[Test worker @kotlinx.coroutines.test runner#2] INFO org.quartz.core.QuartzScheduler - Scheduler meta-data: Quartz Scheduler (v2.3.2) 'DefaultQuartzScheduler' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 10 threads.
+  Using job-store 'org.quartz.simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+
+[Test worker @kotlinx.coroutines.test runner#2] INFO org.quartz.impl.StdSchedulerFactory - Quartz scheduler 'DefaultQuartzScheduler' initialized from default resource file in Quartz package: 'quartz.properties'
+[Test worker @kotlinx.coroutines.test runner#2] INFO org.quartz.impl.StdSchedulerFactory - Quartz scheduler version: 2.3.2
+[DefaultDispatcher-worker-1 @coroutine#3] INFO org.apache.kafka.clients.consumer.ConsumerConfig - ConsumerConfig values: 
+	allow.auto.create.topics = true
+	auto.commit.interval.ms = 5000
+	auto.include.jmx.reporter = true
+	auto.offset.reset = earliest
+	bootstrap.servers = [PLAINTEXT://localhost:54216]
+	check.crcs = true
+	client.dns.lookup = use_all_dns_ips
+	client.id = topic-consumer-714621d6-68e7-4a65-8ac4-9877906cf2b7
+	client.rack = 
+	connections.max.idle.ms = 540000
+	default.api.timeout.ms = 60000
+	enable.auto.commit = false
+	exclude.internal.topics = true
+	fetch.max.bytes = 52428800
+	fetch.max.wait.ms = 500
+	fetch.min.bytes = 1
+	group.id = antaeus.group
+	group.instance.id = pleo.invoice.charge-714621d6-68e7-4a65-8ac4-9877906cf2b7
+	heartbeat.interval.ms = 3000
+	interceptor.classes = []
+	internal.leave.group.on.close = true
+	internal.throw.on.fetch.stable.offset.unsupported = false
+	isolation.level = read_uncommitted
+	key.deserializer = class org.apache.kafka.common.serialization.StringDeserializer
+	max.partition.fetch.bytes = 1048576
+	max.poll.interval.ms = 300000
+	max.poll.records = 500
+	metadata.max.age.ms = 300000
+	metric.reporters = []
+	metrics.num.samples = 2
+	metrics.recording.level = INFO
+	metrics.sample.window.ms = 30000
+	partition.assignment.strategy = [class org.apache.kafka.clients.consumer.RangeAssignor, class org.apache.kafka.clients.consumer.CooperativeStickyAssignor]
+	receive.buffer.bytes = 65536
+	reconnect.backoff.max.ms = 1000
+	reconnect.backoff.ms = 50
+	request.timeout.ms = 30000
+	retry.backoff.ms = 100
+	sasl.client.callback.handler.class = null
+	sasl.jaas.config = null
+	sasl.kerberos.kinit.cmd = /usr/bin/kinit
+	sasl.kerberos.min.time.before.relogin = 60000
+	sasl.kerberos.service.name = null
+	sasl.kerberos.ticket.renew.jitter = 0.05
+	sasl.kerberos.ticket.renew.window.factor = 0.8
+	sasl.login.callback.handler.class = null
+	sasl.login.class = null
+	sasl.login.connect.timeout.ms = null
+	sasl.login.read.timeout.ms = null
+	sasl.login.refresh.buffer.seconds = 300
+	sasl.login.refresh.min.period.seconds = 60
+	sasl.login.refresh.window.factor = 0.8
+	sasl.login.refresh.window.jitter = 0.05
+	sasl.login.retry.backoff.max.ms = 10000
+	sasl.login.retry.backoff.ms = 100
+	sasl.mechanism = GSSAPI
+	sasl.oauthbearer.clock.skew.seconds = 30
+	sasl.oauthbearer.expected.audience = null
+	sasl.oauthbearer.expected.issuer = null
+	sasl.oauthbearer.jwks.endpoint.refresh.ms = 3600000
+	sasl.oauthbearer.jwks.endpoint.retry.backoff.max.ms = 10000
+	sasl.oauthbearer.jwks.endpoint.retry.backoff.ms = 100
+	sasl.oauthbearer.jwks.endpoint.url = null
+	sasl.oauthbearer.scope.claim.name = scope
+	sasl.oauthbearer.sub.claim.name = sub
+	sasl.oauthbearer.token.endpoint.url = null
+	security.protocol = PLAINTEXT
+	security.providers = null
+	send.buffer.bytes = 131072
+	session.timeout.ms = 45000
+	socket.connection.setup.timeout.max.ms = 30000
+	socket.connection.setup.timeout.ms = 10000
+	ssl.cipher.suites = null
+	ssl.enabled.protocols = [TLSv1.2, TLSv1.3]
+	ssl.endpoint.identification.algorithm = https
+	ssl.engine.factory.class = null
+	ssl.key.password = null
+	ssl.keymanager.algorithm = SunX509
+	ssl.keystore.certificate.chain = null
+	ssl.keystore.key = null
+	ssl.keystore.location = null
+	ssl.keystore.password = null
+	ssl.keystore.type = JKS
+	ssl.protocol = TLSv1.3
+	ssl.provider = null
+	ssl.secure.random.implementation = null
+	ssl.trustmanager.algorithm = PKIX
+	ssl.truststore.certificates = null
+	ssl.truststore.location = null
+	ssl.truststore.password = null
+	ssl.truststore.type = JKS
+	value.deserializer = class org.apache.kafka.common.serialization.ByteArrayDeserializer
+
+[DefaultDispatcher-worker-1 @coroutine#3] INFO org.apache.kafka.common.utils.AppInfoParser - Kafka version: 3.6.0
+[DefaultDispatcher-worker-1 @coroutine#3] INFO org.apache.kafka.common.utils.AppInfoParser - Kafka commitId: 60e845626d8a465a
+[DefaultDispatcher-worker-1 @coroutine#3] INFO org.apache.kafka.common.utils.AppInfoParser - Kafka startTimeMs: 1703630135943
+[reactive-kafka-antaeus.group-1] INFO org.apache.kafka.clients.consumer.KafkaConsumer - [Consumer instanceId=pleo.invoice.charge-714621d6-68e7-4a65-8ac4-9877906cf2b7, clientId=topic-consumer-714621d6-68e7-4a65-8ac4-9877906cf2b7, groupId=antaeus.group] Subscribed to topic(s): pleo.invoice.charge
+[Test worker @coroutine#4] INFO org.quartz.core.QuartzScheduler - Scheduler DefaultQuartzScheduler_$_NON_CLUSTERED started.
+[reactive-kafka-antaeus.group-1] WARN org.apache.kafka.clients.NetworkClient - [Consumer instanceId=pleo.invoice.charge-714621d6-68e7-4a65-8ac4-9877906cf2b7, clientId=topic-consumer-714621d6-68e7-4a65-8ac4-9877906cf2b7, groupId=antaeus.group] Error while fetching metadata with correlation id 2 : {pleo.invoice.charge=LEADER_NOT_AVAILABLE}
+[reactive-kafka-antaeus.group-1] INFO org.apache.kafka.clients.Metadata - [Consumer instanceId=pleo.invoice.charge-714621d6-68e7-4a65-8ac4-9877906cf2b7, clientId=topic-consumer-714621d6-68e7-4a65-8ac4-9877906cf2b7, groupId=antaeus.group] Cluster ID: U3CxvBMaTRqUOapjh4vMNw
+[reactive-kafka-antaeus.group-1] WARN org.apache.kafka.clients.NetworkClient - [Consumer instanceId=pleo.invoice.charge-714621d6-68e7-4a65-8ac4-9877906cf2b7, clientId=topic-consumer-714621d6-68e7-4a65-8ac4-9877906cf2b7, groupId=antaeus.group] Error while fetching metadata with correlation id 5 : {pleo.invoice.charge=LEADER_NOT_AVAILABLE}
+[reactive-kafka-antaeus.group-1] INFO org.apache.kafka.clients.consumer.internals.ConsumerCoordinator - [Consumer instanceId=pleo.invoice.charge-714621d6-68e7-4a65-8ac4-9877906cf2b7, clientId=topic-consumer-714621d6-68e7-4a65-8ac4-9877906cf2b7, groupId=antaeus.group] Discovered group coordinator localhost:54216 (id: 2147483646 rack: null)
+[reactive-kafka-antaeus.group-1] INFO org.apache.kafka.clients.consumer.internals.ConsumerCoordinator - [Consumer instanceId=pleo.invoice.charge-714621d6-68e7-4a65-8ac4-9877906cf2b7, clientId=topic-consumer-714621d6-68e7-4a65-8ac4-9877906cf2b7, groupId=antaeus.group] (Re-)joining group
+[reactive-kafka-antaeus.group-1] INFO org.apache.kafka.clients.consumer.internals.ConsumerCoordinator - [Consumer instanceId=pleo.invoice.charge-714621d6-68e7-4a65-8ac4-9877906cf2b7, clientId=topic-consumer-714621d6-68e7-4a65-8ac4-9877906cf2b7, groupId=antaeus.group] Successfully joined group with generation Generation{generationId=1, memberId='pleo.invoice.charge-714621d6-68e7-4a65-8ac4-9877906cf2b7-76a7466e-55d2-4c07-830b-f8158d9c0301', protocol='range'}
+[reactive-kafka-antaeus.group-1] INFO org.apache.kafka.clients.consumer.internals.ConsumerCoordinator - [Consumer instanceId=pleo.invoice.charge-714621d6-68e7-4a65-8ac4-9877906cf2b7, clientId=topic-consumer-714621d6-68e7-4a65-8ac4-9877906cf2b7, groupId=antaeus.group] Finished assignment for group at generation 1: {pleo.invoice.charge-714621d6-68e7-4a65-8ac4-9877906cf2b7-76a7466e-55d2-4c07-830b-f8158d9c0301=Assignment(partitions=[pleo.invoice.charge-0])}
+[reactive-kafka-antaeus.group-1] INFO org.apache.kafka.clients.consumer.internals.ConsumerCoordinator - [Consumer instanceId=pleo.invoice.charge-714621d6-68e7-4a65-8ac4-9877906cf2b7, clientId=topic-consumer-714621d6-68e7-4a65-8ac4-9877906cf2b7, groupId=antaeus.group] Successfully synced group in generation Generation{generationId=1, memberId='pleo.invoice.charge-714621d6-68e7-4a65-8ac4-9877906cf2b7-76a7466e-55d2-4c07-830b-f8158d9c0301', protocol='range'}
+[reactive-kafka-antaeus.group-1] INFO org.apache.kafka.clients.consumer.internals.ConsumerCoordinator - [Consumer instanceId=pleo.invoice.charge-714621d6-68e7-4a65-8ac4-9877906cf2b7, clientId=topic-consumer-714621d6-68e7-4a65-8ac4-9877906cf2b7, groupId=antaeus.group] Notifying assignor about the new Assignment(partitions=[pleo.invoice.charge-0])
+[reactive-kafka-antaeus.group-1] INFO org.apache.kafka.clients.consumer.internals.ConsumerCoordinator - [Consumer instanceId=pleo.invoice.charge-714621d6-68e7-4a65-8ac4-9877906cf2b7, clientId=topic-consumer-714621d6-68e7-4a65-8ac4-9877906cf2b7, groupId=antaeus.group] Adding newly assigned partitions: pleo.invoice.charge-0
+[reactive-kafka-antaeus.group-1] INFO org.apache.kafka.clients.consumer.internals.ConsumerCoordinator - [Consumer instanceId=pleo.invoice.charge-714621d6-68e7-4a65-8ac4-9877906cf2b7, clientId=topic-consumer-714621d6-68e7-4a65-8ac4-9877906cf2b7, groupId=antaeus.group] Found no committed offset for partition pleo.invoice.charge-0
+[reactive-kafka-antaeus.group-1] INFO org.apache.kafka.clients.consumer.internals.SubscriptionState - [Consumer instanceId=pleo.invoice.charge-714621d6-68e7-4a65-8ac4-9877906cf2b7, clientId=topic-consumer-714621d6-68e7-4a65-8ac4-9877906cf2b7, groupId=antaeus.group] Resetting offset for partition pleo.invoice.charge-0 to position FetchPosition{offset=0, offsetEpoch=Optional.empty, currentLeader=LeaderAndEpoch{leader=Optional[localhost:54216 (id: 1 rack: null)], epoch=0}}.
+[DefaultQuartzScheduler_Worker-1 @coroutine#5] INFO io.pleo.antaeus.core.services.billing.BillingJob - Staring pending invoices processing...
+[DefaultQuartzScheduler_Worker-1 @coroutine#12] INFO org.apache.kafka.clients.producer.ProducerConfig - ProducerConfig values: 
+	acks = -1
+	auto.include.jmx.reporter = true
+	batch.size = 16384
+	bootstrap.servers = [PLAINTEXT://localhost:54216]
+	buffer.memory = 33554432
+	client.dns.lookup = use_all_dns_ips
+	client.id = topic-producer-714621d6-68e7-4a65-8ac4-9877906cf2b7
+	compression.type = none
+	connections.max.idle.ms = 540000
+	delivery.timeout.ms = 120000
+	enable.idempotence = true
+	interceptor.classes = []
+	key.serializer = class org.apache.kafka.common.serialization.StringSerializer
+	linger.ms = 0
+	max.block.ms = 60000
+	max.in.flight.requests.per.connection = 5
+	max.request.size = 1048576
+	metadata.max.age.ms = 300000
+	metadata.max.idle.ms = 300000
+	metric.reporters = []
+	metrics.num.samples = 2
+	metrics.recording.level = INFO
+	metrics.sample.window.ms = 30000
+	partitioner.adaptive.partitioning.enable = true
+	partitioner.availability.timeout.ms = 0
+	partitioner.class = null
+	partitioner.ignore.keys = false
+	receive.buffer.bytes = 32768
+	reconnect.backoff.max.ms = 1000
+	reconnect.backoff.ms = 50
+	request.timeout.ms = 30000
+	retries = 2147483647
+	retry.backoff.ms = 100
+	sasl.client.callback.handler.class = null
+	sasl.jaas.config = null
+	sasl.kerberos.kinit.cmd = /usr/bin/kinit
+	sasl.kerberos.min.time.before.relogin = 60000
+	sasl.kerberos.service.name = null
+	sasl.kerberos.ticket.renew.jitter = 0.05
+	sasl.kerberos.ticket.renew.window.factor = 0.8
+	sasl.login.callback.handler.class = null
+	sasl.login.class = null
+	sasl.login.connect.timeout.ms = null
+	sasl.login.read.timeout.ms = null
+	sasl.login.refresh.buffer.seconds = 300
+	sasl.login.refresh.min.period.seconds = 60
+	sasl.login.refresh.window.factor = 0.8
+	sasl.login.refresh.window.jitter = 0.05
+	sasl.login.retry.backoff.max.ms = 10000
+	sasl.login.retry.backoff.ms = 100
+	sasl.mechanism = GSSAPI
+	sasl.oauthbearer.clock.skew.seconds = 30
+	sasl.oauthbearer.expected.audience = null
+	sasl.oauthbearer.expected.issuer = null
+	sasl.oauthbearer.jwks.endpoint.refresh.ms = 3600000
+	sasl.oauthbearer.jwks.endpoint.retry.backoff.max.ms = 10000
+	sasl.oauthbearer.jwks.endpoint.retry.backoff.ms = 100
+	sasl.oauthbearer.jwks.endpoint.url = null
+	sasl.oauthbearer.scope.claim.name = scope
+	sasl.oauthbearer.sub.claim.name = sub
+	sasl.oauthbearer.token.endpoint.url = null
+	security.protocol = PLAINTEXT
+	security.providers = null
+	send.buffer.bytes = 131072
+	socket.connection.setup.timeout.max.ms = 30000
+	socket.connection.setup.timeout.ms = 10000
+	ssl.cipher.suites = null
+	ssl.enabled.protocols = [TLSv1.2, TLSv1.3]
+	ssl.endpoint.identification.algorithm = https
+	ssl.engine.factory.class = null
+	ssl.key.password = null
+	ssl.keymanager.algorithm = SunX509
+	ssl.keystore.certificate.chain = null
+	ssl.keystore.key = null
+	ssl.keystore.location = null
+	ssl.keystore.password = null
+	ssl.keystore.type = JKS
+	ssl.protocol = TLSv1.3
+	ssl.provider = null
+	ssl.secure.random.implementation = null
+	ssl.trustmanager.algorithm = PKIX
+	ssl.truststore.certificates = null
+	ssl.truststore.location = null
+	ssl.truststore.password = null
+	ssl.truststore.type = JKS
+	transaction.timeout.ms = 60000
+	transactional.id = null
+	value.serializer = class io.pleo.antaeus.messaging.kafka.base.json.KafkaJacksonSerializer
+
+[DefaultQuartzScheduler_Worker-1 @coroutine#12] INFO org.apache.kafka.clients.producer.KafkaProducer - [Producer clientId=topic-producer-714621d6-68e7-4a65-8ac4-9877906cf2b7] Instantiated an idempotent producer.
+[DefaultQuartzScheduler_Worker-1 @coroutine#12] INFO org.apache.kafka.clients.producer.ProducerConfig - These configurations '[group.instance.id]' were supplied but are not used yet.
+[DefaultQuartzScheduler_Worker-1 @coroutine#12] INFO org.apache.kafka.common.utils.AppInfoParser - Kafka version: 3.6.0
+[DefaultQuartzScheduler_Worker-1 @coroutine#12] INFO org.apache.kafka.common.utils.AppInfoParser - Kafka commitId: 60e845626d8a465a
+[DefaultQuartzScheduler_Worker-1 @coroutine#12] INFO org.apache.kafka.common.utils.AppInfoParser - Kafka startTimeMs: 1703630145099
+[kafka-producer-network-thread | topic-producer-714621d6-68e7-4a65-8ac4-9877906cf2b7] INFO org.apache.kafka.clients.Metadata - [Producer clientId=topic-producer-714621d6-68e7-4a65-8ac4-9877906cf2b7] Cluster ID: U3CxvBMaTRqUOapjh4vMNw
+[kafka-producer-network-thread | topic-producer-714621d6-68e7-4a65-8ac4-9877906cf2b7] INFO org.apache.kafka.clients.producer.internals.TransactionManager - [Producer clientId=topic-producer-714621d6-68e7-4a65-8ac4-9877906cf2b7] ProducerId set to 0 with epoch 0
+[DefaultQuartzScheduler_Worker-1 @coroutine#12] INFO io.pleo.antaeus.messaging.kafka.base.source.KafkaEventProducer - The event has been sent successfully Correlation=pleo.invoice.charge-1 metadata=pleo.invoice.charge-0@0 exception=null
+[DefaultQuartzScheduler_Worker-1 @coroutine#13] INFO io.pleo.antaeus.messaging.kafka.base.source.KafkaEventProducer - The event has been sent successfully Correlation=pleo.invoice.charge-11 metadata=pleo.invoice.charge-0@1 exception=null
+[DefaultQuartzScheduler_Worker-1 @coroutine#14] INFO io.pleo.antaeus.messaging.kafka.base.source.KafkaEventProducer - The event has been sent successfully Correlation=pleo.invoice.charge-21 metadata=pleo.invoice.charge-0@2 exception=null
+[DefaultQuartzScheduler_Worker-1 @coroutine#15] INFO io.pleo.antaeus.messaging.kafka.base.source.KafkaEventProducer - The event has been sent successfully Correlation=pleo.invoice.charge-31 metadata=pleo.invoice.charge-0@3 exception=null
+[DefaultQuartzScheduler_Worker-1 @coroutine#16] INFO io.pleo.antaeus.messaging.kafka.base.source.KafkaEventProducer - The event has been sent successfully Correlation=pleo.invoice.charge-41 metadata=pleo.invoice.charge-0@4 exception=null
+[DefaultDispatcher-worker-2 @coroutine#3] INFO io.pleo.antaeus.core.services.billing.BillingService - Invoice with id InvoiceId(value=1) being processed
+[DefaultDispatcher-worker-2 @coroutine#3] INFO io.pleo.antaeus.core.services.billing.BillingService - Invoice InvoiceId(value=1) successfully charged.
+[DefaultDispatcher-worker-2 @coroutine#3] INFO io.pleo.antaeus.core.services.billing.BillingService - Invoice with id InvoiceId(value=11) being processed
+[DefaultDispatcher-worker-2 @coroutine#3] INFO io.pleo.antaeus.core.services.billing.BillingService - Invoice InvoiceId(value=11) successfully charged.
+[DefaultDispatcher-worker-2 @coroutine#3] INFO io.pleo.antaeus.core.services.billing.BillingService - Invoice with id InvoiceId(value=21) being processed
+[DefaultDispatcher-worker-2 @coroutine#3] INFO io.pleo.antaeus.core.services.billing.BillingService - Invoice InvoiceId(value=21) successfully charged.
+[DefaultDispatcher-worker-2 @coroutine#3] INFO io.pleo.antaeus.core.services.billing.BillingService - Invoice with id InvoiceId(value=31) being processed
+[DefaultDispatcher-worker-2 @coroutine#3] WARN io.pleo.antaeus.core.services.billing.BillingService - Charging invoice with id 31 failed with error InsufficientFunds
+[DefaultDispatcher-worker-2 @coroutine#3] INFO io.pleo.antaeus.core.infrastracture.adapter.driven.EmailNotifier - Send email through external provider informing about Could not charge invoice 31 due to error: InsufficientFunds. Please inspect and act.
+[DefaultDispatcher-worker-2 @coroutine#3] INFO io.pleo.antaeus.core.infrastracture.adapter.driven.TelemetryNotifier - Could not charge invoice 31 due to error: InsufficientFunds. Please inspect and act.
+[DefaultDispatcher-worker-2 @coroutine#3] ERROR io.pleo.antaeus.messaging.kafka.base.sink.DlqPassingKafkaErrorSink - Encountered error while handling event in topic pleo.invoice.charge. Sending event to DLQ antaeus.events.dlq. Error cause: An error InsufficientFunds occurred while processing the invoice 31 charge.
+io.pleo.antaeus.core.exceptions.InvoiceChargeProcessingException: An error InsufficientFunds occurred while processing the invoice 31 charge.
+	at io.pleo.antaeus.core.infrastracture.adapter.driver.ChargeInvoiceEventSink.accept(ChargeInvoiceEventSink.kt:18)
+	at io.pleo.antaeus.core.infrastracture.adapter.driver.ChargeInvoiceEventSink$accept$1.invokeSuspend(ChargeInvoiceEventSink.kt)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:33)
+	at kotlinx.coroutines.DispatchedTask.run(DispatchedTask.kt:108)
+	at kotlinx.coroutines.internal.LimitedDispatcher$Worker.run(LimitedDispatcher.kt:115)
+	at kotlinx.coroutines.scheduling.TaskImpl.run(Tasks.kt:103)
+	at kotlinx.coroutines.scheduling.CoroutineScheduler.runSafely(CoroutineScheduler.kt:584)
+	at kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.executeTask(CoroutineScheduler.kt:793)
+	at kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.runWorker(CoroutineScheduler.kt:697)
+	at kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.run(CoroutineScheduler.kt:684)
+[DefaultDispatcher-worker-2 @coroutine#3] INFO org.apache.kafka.clients.producer.ProducerConfig - ProducerConfig values: 
+	acks = -1
+	auto.include.jmx.reporter = true
+	batch.size = 16384
+	bootstrap.servers = [PLAINTEXT://localhost:54216]
+	buffer.memory = 33554432
+	client.dns.lookup = use_all_dns_ips
+	client.id = dlq-producer-714621d6-68e7-4a65-8ac4-9877906cf2b7
+	compression.type = none
+	connections.max.idle.ms = 540000
+	delivery.timeout.ms = 120000
+	enable.idempotence = true
+	interceptor.classes = []
+	key.serializer = class org.apache.kafka.common.serialization.StringSerializer
+	linger.ms = 0
+	max.block.ms = 60000
+	max.in.flight.requests.per.connection = 5
+	max.request.size = 1048576
+	metadata.max.age.ms = 300000
+	metadata.max.idle.ms = 300000
+	metric.reporters = []
+	metrics.num.samples = 2
+	metrics.recording.level = INFO
+	metrics.sample.window.ms = 30000
+	partitioner.adaptive.partitioning.enable = true
+	partitioner.availability.timeout.ms = 0
+	partitioner.class = null
+	partitioner.ignore.keys = false
+	receive.buffer.bytes = 32768
+	reconnect.backoff.max.ms = 1000
+	reconnect.backoff.ms = 50
+	request.timeout.ms = 30000
+	retries = 2147483647
+	retry.backoff.ms = 100
+	sasl.client.callback.handler.class = null
+	sasl.jaas.config = null
+	sasl.kerberos.kinit.cmd = /usr/bin/kinit
+	sasl.kerberos.min.time.before.relogin = 60000
+	sasl.kerberos.service.name = null
+	sasl.kerberos.ticket.renew.jitter = 0.05
+	sasl.kerberos.ticket.renew.window.factor = 0.8
+	sasl.login.callback.handler.class = null
+	sasl.login.class = null
+	sasl.login.connect.timeout.ms = null
+	sasl.login.read.timeout.ms = null
+	sasl.login.refresh.buffer.seconds = 300
+	sasl.login.refresh.min.period.seconds = 60
+	sasl.login.refresh.window.factor = 0.8
+	sasl.login.refresh.window.jitter = 0.05
+	sasl.login.retry.backoff.max.ms = 10000
+	sasl.login.retry.backoff.ms = 100
+	sasl.mechanism = GSSAPI
+	sasl.oauthbearer.clock.skew.seconds = 30
+	sasl.oauthbearer.expected.audience = null
+	sasl.oauthbearer.expected.issuer = null
+	sasl.oauthbearer.jwks.endpoint.refresh.ms = 3600000
+	sasl.oauthbearer.jwks.endpoint.retry.backoff.max.ms = 10000
+	sasl.oauthbearer.jwks.endpoint.retry.backoff.ms = 100
+	sasl.oauthbearer.jwks.endpoint.url = null
+	sasl.oauthbearer.scope.claim.name = scope
+	sasl.oauthbearer.sub.claim.name = sub
+	sasl.oauthbearer.token.endpoint.url = null
+	security.protocol = PLAINTEXT
+	security.providers = null
+	send.buffer.bytes = 131072
+	socket.connection.setup.timeout.max.ms = 30000
+	socket.connection.setup.timeout.ms = 10000
+	ssl.cipher.suites = null
+	ssl.enabled.protocols = [TLSv1.2, TLSv1.3]
+	ssl.endpoint.identification.algorithm = https
+	ssl.engine.factory.class = null
+	ssl.key.password = null
+	ssl.keymanager.algorithm = SunX509
+	ssl.keystore.certificate.chain = null
+	ssl.keystore.key = null
+	ssl.keystore.location = null
+	ssl.keystore.password = null
+	ssl.keystore.type = JKS
+	ssl.protocol = TLSv1.3
+	ssl.provider = null
+	ssl.secure.random.implementation = null
+	ssl.trustmanager.algorithm = PKIX
+	ssl.truststore.certificates = null
+	ssl.truststore.location = null
+	ssl.truststore.password = null
+	ssl.truststore.type = JKS
+	transaction.timeout.ms = 60000
+	transactional.id = null
+	value.serializer = class io.pleo.antaeus.messaging.kafka.base.json.KafkaJacksonSerializer
+
+[DefaultDispatcher-worker-2 @coroutine#3] INFO org.apache.kafka.clients.producer.KafkaProducer - [Producer clientId=dlq-producer-714621d6-68e7-4a65-8ac4-9877906cf2b7] Instantiated an idempotent producer.
+[DefaultDispatcher-worker-2 @coroutine#3] INFO org.apache.kafka.common.utils.AppInfoParser - Kafka version: 3.6.0
+[DefaultDispatcher-worker-2 @coroutine#3] INFO org.apache.kafka.common.utils.AppInfoParser - Kafka commitId: 60e845626d8a465a
+[DefaultDispatcher-worker-2 @coroutine#3] INFO org.apache.kafka.common.utils.AppInfoParser - Kafka startTimeMs: 1703630146518
+[kafka-producer-network-thread | dlq-producer-714621d6-68e7-4a65-8ac4-9877906cf2b7] WARN org.apache.kafka.clients.NetworkClient - [Producer clientId=dlq-producer-714621d6-68e7-4a65-8ac4-9877906cf2b7] Error while fetching metadata with correlation id 1 : {antaeus.events.dlq=LEADER_NOT_AVAILABLE}
+[kafka-producer-network-thread | dlq-producer-714621d6-68e7-4a65-8ac4-9877906cf2b7] INFO org.apache.kafka.clients.Metadata - [Producer clientId=dlq-producer-714621d6-68e7-4a65-8ac4-9877906cf2b7] Cluster ID: U3CxvBMaTRqUOapjh4vMNw
+[kafka-producer-network-thread | dlq-producer-714621d6-68e7-4a65-8ac4-9877906cf2b7] INFO org.apache.kafka.clients.producer.internals.TransactionManager - [Producer clientId=dlq-producer-714621d6-68e7-4a65-8ac4-9877906cf2b7] ProducerId set to 1 with epoch 0
+[DefaultDispatcher-worker-4 @coroutine#3] INFO io.pleo.antaeus.core.services.billing.BillingService - Invoice with id InvoiceId(value=41) being processed
+[DefaultDispatcher-worker-4 @coroutine#3] INFO io.pleo.antaeus.core.services.billing.BillingService - Invoice InvoiceId(value=41) successfully charged.
+</pre>
+</span>
+</div>
+</div>
+<div id="footer">
+<p>
+<div>
+<label class="hidden" id="label-for-line-wrapping-toggle" for="line-wrapping-toggle">Wrap lines
+<input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
+</label>
+</div>Generated by 
+<a href="http://www.gradle.org">Gradle 7.2</a> at Dec 26, 2023, 11:35:47 PM</p>
+</div>
+</div>
+</body>
+</html>

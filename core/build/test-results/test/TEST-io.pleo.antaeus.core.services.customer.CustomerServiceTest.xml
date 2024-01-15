@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="io.pleo.antaeus.core.services.customer.CustomerServiceTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2023-12-26T22:35:48" hostname="Szymons-MBP.technicolor.net" time="0.016">
+  <properties/>
+  <testcase name="should return CustomerNotFound error if customer is not found()" classname="io.pleo.antaeus.core.services.customer.CustomerServiceTest" time="0.013"/>
+  <testcase name="should return all customers()" classname="io.pleo.antaeus.core.services.customer.CustomerServiceTest" time="0.002"/>
+  <testcase name="should return customer when it exists()" classname="io.pleo.antaeus.core.services.customer.CustomerServiceTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

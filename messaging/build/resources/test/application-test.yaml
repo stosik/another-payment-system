@@ -1,0 +1,21 @@
+kafka:
+  consumer:
+    group:
+      id: antaeus.group
+    bootstrap:
+      servers:
+        - localhost:9092
+    key:
+      deserializer: "org.apache.kafka.common.serialization.StringDeserializer"
+    auto:
+      offset:
+        reset: "earliest"
+    enable:
+      auto:
+        commit: false
+  producer:
+    key:
+      serializer: "org.apache.kafka.common.serialization.StringSerializer"
+    bootstrap:
+      servers:
+        - localhost:9092

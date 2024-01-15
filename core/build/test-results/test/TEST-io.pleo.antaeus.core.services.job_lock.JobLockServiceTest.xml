@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="io.pleo.antaeus.core.services.job_lock.JobLockServiceTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2023-12-26T22:35:48" hostname="Szymons-MBP.technicolor.net" time="0.014">
+  <properties/>
+  <testcase name="should return true when lock could be released()" classname="io.pleo.antaeus.core.services.job_lock.JobLockServiceTest" time="0.007"/>
+  <testcase name="should return true when all lock of running service instance were released()" classname="io.pleo.antaeus.core.services.job_lock.JobLockServiceTest" time="0.002"/>
+  <testcase name="should return true when lock is acquired()" classname="io.pleo.antaeus.core.services.job_lock.JobLockServiceTest" time="0.002"/>
+  <testcase name="should return false when lock is not acquired()" classname="io.pleo.antaeus.core.services.job_lock.JobLockServiceTest" time="0.002"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

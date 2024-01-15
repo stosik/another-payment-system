@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="io.pleo.antaeus.data.integration.repositories.JobLockRepositoryIntegrationTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2023-12-26T22:35:52" hostname="Szymons-MBP.technicolor.net" time="0.185">
+  <properties/>
+  <testcase name="should release lock()" classname="io.pleo.antaeus.data.integration.repositories.JobLockRepositoryIntegrationTest" time="0.085"/>
+  <testcase name="should release all locks of running service instance()" classname="io.pleo.antaeus.data.integration.repositories.JobLockRepositoryIntegrationTest" time="0.043"/>
+  <testcase name="should acquire lock()" classname="io.pleo.antaeus.data.integration.repositories.JobLockRepositoryIntegrationTest" time="0.027"/>
+  <system-out><![CDATA[SQL: DROP TABLE IF EXISTS joblock
+SQL: DROP TABLE IF EXISTS invoice
+SQL: DROP TABLE IF EXISTS customer
+SQL: CREATE TABLE IF NOT EXISTS customer (id SERIAL, currency VARCHAR(3) NOT NULL, CONSTRAINT pk_customer_id PRIMARY KEY (id))
+SQL: CREATE TABLE IF NOT EXISTS invoice (id SERIAL, currency VARCHAR(3) NOT NULL, "value" DECIMAL(1000, 2) NOT NULL, customer_id INT NOT NULL, status TEXT NOT NULL, CONSTRAINT pk_invoice_id PRIMARY KEY (id), CONSTRAINT fk_invoice_customer_id__id FOREIGN KEY (customer_id) REFERENCES customer(id) ON DELETE RESTRICT ON UPDATE RESTRICT)
+SQL: CREATE INDEX idx_invoice_status ON invoice (status)
+SQL: CREATE TABLE IF NOT EXISTS joblock (id SERIAL, "name" VARCHAR(128) NOT NULL, "locked" BOOLEAN NOT NULL, CONSTRAINT pk_job_lock_id PRIMARY KEY (id))
+SQL: ALTER TABLE joblock ADD CONSTRAINT joblock_name_unique UNIQUE ("name")
+SQL: DROP TABLE IF EXISTS joblock
+SQL: DROP TABLE IF EXISTS invoice
+SQL: DROP TABLE IF EXISTS customer
+SQL: CREATE TABLE IF NOT EXISTS customer (id SERIAL, currency VARCHAR(3) NOT NULL, CONSTRAINT pk_customer_id PRIMARY KEY (id))
+SQL: CREATE TABLE IF NOT EXISTS invoice (id SERIAL, currency VARCHAR(3) NOT NULL, "value" DECIMAL(1000, 2) NOT NULL, customer_id INT NOT NULL, status TEXT NOT NULL, CONSTRAINT pk_invoice_id PRIMARY KEY (id), CONSTRAINT fk_invoice_customer_id__id FOREIGN KEY (customer_id) REFERENCES customer(id) ON DELETE RESTRICT ON UPDATE RESTRICT)
+SQL: CREATE INDEX idx_invoice_status ON invoice (status)
+SQL: CREATE TABLE IF NOT EXISTS joblock (id SERIAL, "name" VARCHAR(128) NOT NULL, "locked" BOOLEAN NOT NULL, CONSTRAINT pk_job_lock_id PRIMARY KEY (id))
+SQL: ALTER TABLE joblock ADD CONSTRAINT joblock_name_unique UNIQUE ("name")
+SQL: DROP TABLE IF EXISTS joblock
+SQL: DROP TABLE IF EXISTS invoice
+SQL: DROP TABLE IF EXISTS customer
+SQL: CREATE TABLE IF NOT EXISTS customer (id SERIAL, currency VARCHAR(3) NOT NULL, CONSTRAINT pk_customer_id PRIMARY KEY (id))
+SQL: CREATE TABLE IF NOT EXISTS invoice (id SERIAL, currency VARCHAR(3) NOT NULL, "value" DECIMAL(1000, 2) NOT NULL, customer_id INT NOT NULL, status TEXT NOT NULL, CONSTRAINT pk_invoice_id PRIMARY KEY (id), CONSTRAINT fk_invoice_customer_id__id FOREIGN KEY (customer_id) REFERENCES customer(id) ON DELETE RESTRICT ON UPDATE RESTRICT)
+SQL: CREATE INDEX idx_invoice_status ON invoice (status)
+SQL: CREATE TABLE IF NOT EXISTS joblock (id SERIAL, "name" VARCHAR(128) NOT NULL, "locked" BOOLEAN NOT NULL, CONSTRAINT pk_job_lock_id PRIMARY KEY (id))
+SQL: ALTER TABLE joblock ADD CONSTRAINT joblock_name_unique UNIQUE ("name")
+]]></system-out>
+  <system-err><![CDATA[[Test worker] INFO tc.postgres:15.2 - Creating container for image: postgres:15.2
+[Test worker] INFO tc.postgres:15.2 - Container postgres:15.2 is starting: 277c209d78cf0603b10e2d14bf6d357a6e0bc02acf8968102547057b77b19883
+[Test worker] INFO tc.postgres:15.2 - Container postgres:15.2 started in PT1.027989S
+[Test worker] INFO tc.postgres:15.2 - Container is started (JDBC URL: jdbc:postgresql://localhost:54264/test?loggerLevel=OFF)
+[Test worker] INFO com.zaxxer.hikari.HikariDataSource - HikariPool-4 - Starting...
+[Test worker] INFO com.zaxxer.hikari.pool.HikariPool - HikariPool-4 - Added connection org.postgresql.jdbc.PgConnection@535a518c
+[Test worker] INFO com.zaxxer.hikari.HikariDataSource - HikariPool-4 - Start completed.
+[Test worker] WARN Exposed - Keyword identifier used: 'value'. Case sensitivity may not be kept when quoted by default: 'value'. To keep case sensitivity, opt-in and set 'preserveKeywordCasing' to true in DatabaseConfig block.
+[Test worker] WARN Exposed - Keyword identifier used: 'name'. Case sensitivity may not be kept when quoted by default: 'name'. To keep case sensitivity, opt-in and set 'preserveKeywordCasing' to true in DatabaseConfig block.
+[Test worker] WARN Exposed - Keyword identifier used: 'locked'. Case sensitivity may not be kept when quoted by default: 'locked'. To keep case sensitivity, opt-in and set 'preserveKeywordCasing' to true in DatabaseConfig block.
+[Test worker] INFO com.zaxxer.hikari.HikariDataSource - HikariPool-5 - Starting...
+[Test worker] INFO com.zaxxer.hikari.pool.HikariPool - HikariPool-5 - Added connection org.postgresql.jdbc.PgConnection@38fb50f8
+[Test worker] INFO com.zaxxer.hikari.HikariDataSource - HikariPool-5 - Start completed.
+[Test worker] WARN Exposed - Keyword identifier used: 'value'. Case sensitivity may not be kept when quoted by default: 'value'. To keep case sensitivity, opt-in and set 'preserveKeywordCasing' to true in DatabaseConfig block.
+[Test worker] WARN Exposed - Keyword identifier used: 'name'. Case sensitivity may not be kept when quoted by default: 'name'. To keep case sensitivity, opt-in and set 'preserveKeywordCasing' to true in DatabaseConfig block.
+[Test worker] WARN Exposed - Keyword identifier used: 'locked'. Case sensitivity may not be kept when quoted by default: 'locked'. To keep case sensitivity, opt-in and set 'preserveKeywordCasing' to true in DatabaseConfig block.
+[Test worker] INFO com.zaxxer.hikari.HikariDataSource - HikariPool-6 - Starting...
+[Test worker] INFO com.zaxxer.hikari.pool.HikariPool - HikariPool-6 - Added connection org.postgresql.jdbc.PgConnection@70ede57d
+[Test worker] INFO com.zaxxer.hikari.HikariDataSource - HikariPool-6 - Start completed.
+[Test worker] WARN Exposed - Keyword identifier used: 'value'. Case sensitivity may not be kept when quoted by default: 'value'. To keep case sensitivity, opt-in and set 'preserveKeywordCasing' to true in DatabaseConfig block.
+[Test worker] WARN Exposed - Keyword identifier used: 'name'. Case sensitivity may not be kept when quoted by default: 'name'. To keep case sensitivity, opt-in and set 'preserveKeywordCasing' to true in DatabaseConfig block.
+[Test worker] WARN Exposed - Keyword identifier used: 'locked'. Case sensitivity may not be kept when quoted by default: 'locked'. To keep case sensitivity, opt-in and set 'preserveKeywordCasing' to true in DatabaseConfig block.
+]]></system-err>
+</testsuite>

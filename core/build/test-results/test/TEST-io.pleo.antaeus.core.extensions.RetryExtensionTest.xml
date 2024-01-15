@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="io.pleo.antaeus.core.extensions.RetryExtensionTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2023-12-26T22:35:48" hostname="Szymons-MBP.technicolor.net" time="0.267">
+  <properties/>
+  <testcase name="should retry 2 times and return success()" classname="io.pleo.antaeus.core.extensions.RetryExtensionTest" time="0.261"/>
+  <testcase name="should retry 3 times and return error back()" classname="io.pleo.antaeus.core.extensions.RetryExtensionTest" time="0.005"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
