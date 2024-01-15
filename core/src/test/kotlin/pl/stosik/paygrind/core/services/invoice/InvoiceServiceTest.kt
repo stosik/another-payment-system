@@ -12,7 +12,7 @@ import pl.stosik.paygrind.data.port.driven.InvoiceFinder
 import pl.stosik.paygrind.data.port.driven.InvoiceUpdater
 import pl.stosik.paygrind.models.domain.InvoiceId
 import pl.stosik.paygrind.models.domain.InvoiceStatus
-import pl.stosik.paygrind.models.domain.errors.AntaeusError.BillingError.NonRetryableError.InvoiceNotFound
+import pl.stosik.paygrind.models.domain.errors.PaygrindError.BillingError.NonRetryableError.InvoiceNotFound
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 internal class InvoiceServiceTest {

@@ -14,10 +14,10 @@ import pl.stosik.paygrind.core.port.driven.PaymentProvider
 import pl.stosik.paygrind.core.services.customer.CustomerService
 import pl.stosik.paygrind.core.services.invoice.InvoiceService
 import pl.stosik.paygrind.models.domain.*
-import pl.stosik.paygrind.models.domain.errors.AntaeusError
-import pl.stosik.paygrind.models.domain.errors.AntaeusError.BillingError.NonRetryableError.CurrencyMismatch
-import pl.stosik.paygrind.models.domain.errors.AntaeusError.BillingError.NonRetryableError.CustomerNotFound
-import pl.stosik.paygrind.models.domain.errors.AntaeusError.BillingError.RetryableError.PaymentProviderNetworkError
+import pl.stosik.paygrind.models.domain.errors.PaygrindError
+import pl.stosik.paygrind.models.domain.errors.PaygrindError.BillingError.NonRetryableError.CurrencyMismatch
+import pl.stosik.paygrind.models.domain.errors.PaygrindError.BillingError.NonRetryableError.CustomerNotFound
+import pl.stosik.paygrind.models.domain.errors.PaygrindError.BillingError.RetryableError.PaymentProviderNetworkError
 import java.math.BigDecimal
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -96,7 +96,7 @@ internal class BillingServiceTest {
         //then
         result.isLeft() shouldBe true
         result.onLeft {
-            it shouldBe AntaeusError.BillingError.NonRetryableError.InsufficientFunds
+            it shouldBe PaygrindError.BillingError.NonRetryableError.InsufficientFunds
         }
         coVerify { invoiceService.markInvoiceAsFailed(invoice.id) }
     }

@@ -6,7 +6,7 @@ import arrow.core.raise.ensureNotNull
 import pl.stosik.paygrind.data.port.driven.CustomerFinder
 import pl.stosik.paygrind.models.domain.Customer
 import pl.stosik.paygrind.models.domain.CustomerId
-import pl.stosik.paygrind.models.domain.errors.AntaeusError.BillingError.NonRetryableError.CustomerNotFound
+import pl.stosik.paygrind.models.domain.errors.PaygrindError.BillingError.NonRetryableError.CustomerNotFound
 
 class CustomerService(private val customerFinder: CustomerFinder) {
     fun fetchAll(): List<Customer> {

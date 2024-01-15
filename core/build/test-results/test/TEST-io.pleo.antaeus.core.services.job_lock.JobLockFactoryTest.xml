@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="io.pleo.antaeus.core.services.job_lock.JobLockFactoryTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2023-12-26T22:35:48" hostname="Szymons-MBP.technicolor.net" time="0.003">
-  <properties/>
-  <testcase name="should return job lock name with year and month()" classname="io.pleo.antaeus.core.services.job_lock.JobLockFactoryTest" time="0.003"/>
-  <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>

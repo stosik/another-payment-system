@@ -3,9 +3,6 @@ package pl.stosik.paygrind.core.services.billing
 import arrow.core.*
 import arrow.core.raise.either
 import arrow.core.raise.ensure
-import pl.stosik.paygrind.core.exceptions.CurrencyMismatchException
-import pl.stosik.paygrind.core.exceptions.CustomerNotFoundException
-import pl.stosik.paygrind.core.exceptions.NetworkException
 import pl.stosik.paygrind.core.extensions.logger.logger
 import pl.stosik.paygrind.core.extensions.resilience.retry
 import pl.stosik.paygrind.core.port.driven.CurrencyProvider
@@ -17,9 +14,9 @@ import pl.stosik.paygrind.models.domain.Customer
 import pl.stosik.paygrind.models.domain.Invoice
 import pl.stosik.paygrind.models.domain.InvoiceCharged
 import pl.stosik.paygrind.models.domain.InvoiceId
-import pl.stosik.paygrind.models.domain.errors.AntaeusError.BillingError
-import pl.stosik.paygrind.models.domain.errors.AntaeusError.BillingError.NonRetryableError.*
-import pl.stosik.paygrind.models.domain.errors.AntaeusError.BillingError.RetryableError.PaymentProviderNetworkError
+import pl.stosik.paygrind.models.domain.errors.PaygrindError.BillingError
+import pl.stosik.paygrind.models.domain.errors.PaygrindError.BillingError.NonRetryableError.*
+import pl.stosik.paygrind.models.domain.errors.PaygrindError.BillingError.RetryableError.PaymentProviderNetworkError
 import kotlin.time.Duration.Companion.milliseconds
 
 class BillingService(

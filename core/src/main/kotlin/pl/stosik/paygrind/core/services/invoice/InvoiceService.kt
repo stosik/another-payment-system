@@ -8,7 +8,7 @@ import pl.stosik.paygrind.data.port.driven.InvoiceUpdater
 import pl.stosik.paygrind.models.domain.Invoice
 import pl.stosik.paygrind.models.domain.InvoiceId
 import pl.stosik.paygrind.models.domain.InvoiceStatus
-import pl.stosik.paygrind.models.domain.errors.AntaeusError.BillingError.NonRetryableError.InvoiceNotFound
+import pl.stosik.paygrind.models.domain.errors.PaygrindError.BillingError.NonRetryableError.InvoiceNotFound
 
 class InvoiceService(
     private val invoiceFinder: InvoiceFinder,

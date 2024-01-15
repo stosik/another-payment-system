@@ -9,7 +9,7 @@ kotlinProject()
 dataLibs()
 
 application {
-    mainClass.set("pl.stosik.paygrind.app.AntaeusApp")
+    mainClass.set("pl.stosik.paygrind.app.PaygrindApp")
 }
 
 dependencies {

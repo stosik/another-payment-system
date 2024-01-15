@@ -13,8 +13,8 @@ import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 import pl.stosik.paygrind.core.extensions.resilience.retry
-import pl.stosik.paygrind.models.domain.errors.AntaeusError
-import pl.stosik.paygrind.models.domain.errors.AntaeusError.BillingError.RetryableError.PaymentProviderNetworkError
+import pl.stosik.paygrind.models.domain.errors.PaygrindError
+import pl.stosik.paygrind.models.domain.errors.PaygrindError.BillingError.RetryableError.PaymentProviderNetworkError
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 internal class RetryExtensionTest {
@@ -55,5 +55,5 @@ internal class RetryExtensionTest {
 
 internal class RetryMock {
 
-    fun mock(): Either<AntaeusError, Unit> = Unit.right()
+    fun mock(): Either<PaygrindError, Unit> = Unit.right()
 }

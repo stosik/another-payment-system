@@ -2,12 +2,12 @@ package pl.stosik.paygrind.core.extensions.resilience
 
 import arrow.core.Either
 import arrow.resilience.Schedule
-import pl.stosik.paygrind.models.domain.errors.AntaeusError
-import pl.stosik.paygrind.models.domain.errors.AntaeusError.BillingError.RetryableError
+import pl.stosik.paygrind.models.domain.errors.PaygrindError
+import pl.stosik.paygrind.models.domain.errors.PaygrindError.BillingError.RetryableError
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.milliseconds
 
-suspend fun <Error : AntaeusError, Success> retry(
+suspend fun <Error : PaygrindError, Success> retry(
     times: Long,
     delay: Duration = 300.milliseconds,
     vararg onErrors: Error,
@@ -23,6 +23,6 @@ suspend fun <Error : AntaeusError, Success> retry(
     return last
 }
 
-private fun <Error : AntaeusError, Success> unwrapError(updateEither: Either<Error, Success>): Error? {
+private fun <Error : PaygrindError, Success> unwrapError(updateEither: Either<Error, Success>): Error? {
     return updateEither.fold({ error -> error }, { null })
 }

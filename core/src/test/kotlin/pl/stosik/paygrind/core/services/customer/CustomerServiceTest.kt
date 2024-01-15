@@ -8,7 +8,7 @@ import org.junit.jupiter.api.TestInstance
 import pl.stosik.paygrind.core.examples.CustomerExample
 import pl.stosik.paygrind.data.port.driven.CustomerFinder
 import pl.stosik.paygrind.models.domain.CustomerId
-import pl.stosik.paygrind.models.domain.errors.AntaeusError
+import pl.stosik.paygrind.models.domain.errors.PaygrindError
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 internal class CustomerServiceTest {
@@ -27,7 +27,7 @@ internal class CustomerServiceTest {
         //then
         customer.isLeft() shouldBe true
         customer.onLeft {
-            it shouldBe AntaeusError.BillingError.NonRetryableError.CustomerNotFound(CustomerId(404))
+            it shouldBe PaygrindError.BillingError.NonRetryableError.CustomerNotFound(CustomerId(404))
         }
     }
 

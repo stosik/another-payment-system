@@ -1,12 +1,12 @@
-@file:JvmName("AntaeusApp")
+@file:JvmName("PaygrindApp")
 
 package pl.stosik.paygrind.app
 
 import arrow.continuations.SuspendApp
 import arrow.fx.coroutines.resourceScope
+import kotlinx.coroutines.*
 import pl.stosik.paygrind.core.infrastracture.adapter.driver.billingJobScheduler
 import pl.stosik.paygrind.rest.httpServer
-import kotlinx.coroutines.*
 
 fun main() = SuspendApp {
     val config = parseConfiguration(this::class.java.classLoader.getResourceAsStream("application.yaml"))

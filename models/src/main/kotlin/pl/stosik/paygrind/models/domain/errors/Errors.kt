@@ -3,8 +3,8 @@ package pl.stosik.paygrind.models.domain.errors
 import pl.stosik.paygrind.models.domain.CustomerId
 import pl.stosik.paygrind.models.domain.InvoiceId
 
-sealed class AntaeusError {
-    sealed class BillingError : AntaeusError() {
+sealed class PaygrindError {
+    sealed class BillingError : PaygrindError() {
         sealed class RetryableError : BillingError() {
             data object PaymentProviderNetworkError : RetryableError()
         }
