@@ -1,10 +1,10 @@
 package pl.stosik.paygrind.data.adapter.driven
 
 import org.jetbrains.exposed.sql.*
+import pl.stosik.paygrind.data.JooqEngine
 import pl.stosik.paygrind.data.asyncQuery
 import pl.stosik.paygrind.data.port.driven.InvoiceFinder
 import pl.stosik.paygrind.data.port.driven.InvoiceUpdater
-import pl.stosik.paygrind.data.query
 import pl.stosik.paygrind.data.singleOrNull
 import pl.stosik.paygrind.models.domain.*
 
@@ -17,7 +17,7 @@ object InvoiceTable : Table() {
     override val primaryKey = PrimaryKey(columns = arrayOf(id), name = "pk_invoice_id")
 }
 
-class InvoiceRepository(private val db: Database) : InvoiceFinder, InvoiceUpdater {
+class InvoiceRepository(private val db: JooqEngine) : InvoiceFinder, InvoiceUpdater {
 
     override fun fetch(id: InvoiceId): Invoice? {
         return db.query {

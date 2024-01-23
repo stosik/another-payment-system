@@ -1,20 +1,12 @@
 package pl.stosik.paygrind.data.adapter.driven
 
-import org.jetbrains.exposed.sql.*
+import pl.stosik.paygrind.data.JooqEngine
 import pl.stosik.paygrind.data.port.driven.CustomerFinder
-import pl.stosik.paygrind.data.query
-import pl.stosik.paygrind.data.singleOrNull
 import pl.stosik.paygrind.models.domain.Currency
 import pl.stosik.paygrind.models.domain.Customer
 import pl.stosik.paygrind.models.domain.CustomerId
 
-internal object CustomerTable : Table() {
-    val id = integer("id").autoIncrement()
-    val currency = varchar("currency", 3)
-    override val primaryKey = PrimaryKey(columns = arrayOf(id), name = "pk_customer_id")
-}
-
-class CustomerRepository(private val db: Database) : CustomerFinder {
+class CustomerRepository(private val db: JooqEngine) : CustomerFinder {
 
     override fun fetch(id: CustomerId): Customer? {
         return db.query {

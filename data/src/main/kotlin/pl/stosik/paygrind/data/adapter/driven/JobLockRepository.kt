@@ -1,9 +1,7 @@
 package pl.stosik.paygrind.data.adapter.driven
 
-import org.jetbrains.exposed.sql.*
-import pl.stosik.paygrind.data.asyncQuery
+import pl.stosik.paygrind.data.JooqEngine
 import pl.stosik.paygrind.data.port.driven.JobLockAcquirer
-import pl.stosik.paygrind.data.singleOrNull
 import pl.stosik.paygrind.models.infrastracture.JobLock
 
 object JobLockTable : Table() {
@@ -13,7 +11,7 @@ object JobLockTable : Table() {
     override val primaryKey = PrimaryKey(columns = arrayOf(id), name = "pk_job_lock_id")
 }
 
-class JobLockRepository(private val db: Database) : JobLockAcquirer {
+class JobLockRepository(private val db: JooqEngine) : JobLockAcquirer {
 
     override suspend fun acquire(name: String): Boolean {
         return db.asyncQuery {

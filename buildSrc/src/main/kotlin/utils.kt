@@ -61,9 +61,15 @@ fun Project.kotlinProject() {
  */
 fun Project.dataLibs() {
     dependencies {
-        "implementation"("org.jetbrains.exposed:exposed-core:${Versions.EXPOSED_VERSION}")
-        "implementation"("org.jetbrains.exposed:exposed-dao:${Versions.EXPOSED_VERSION}")
-        "implementation"("org.jetbrains.exposed:exposed-jdbc:${Versions.EXPOSED_VERSION}")
-        "implementation"("org.xerial:sqlite-jdbc:3.30.1")
+        "implementation"("org.jooq:jooq:${Versions.JOOQ_VERSION}")
+        "implementation"("org.jooq:jooq-meta-extensions:${Versions.JOOQ_VERSION}")
+        "implementation"("org.jooq:jooq-meta:${Versions.JOOQ_VERSION}")
+        "implementation"("org.jooq:jooq-kotlin-coroutines:${Versions.JOOQ_VERSION}")
+        "implementation"("org.jooq:jooq-kotlin:${Versions.JOOQ_VERSION}")
+
+        "implementation"("io.r2dbc:r2dbc-postgresql:0.8.13.RELEASE")
+        "implementation"("io.r2dbc:r2dbc-spi:${Versions.R2DBC_VERSION}")
+        "implementation"("io.r2dbc:r2dbc-pool:${Versions.R2DBC_VERSION}")
+        "implementation"("org.postgresql:postgresql:${Versions.POSTGRESQL_VERSION}")
     }
 }

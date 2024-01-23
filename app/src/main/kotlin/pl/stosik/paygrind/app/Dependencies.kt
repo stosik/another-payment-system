@@ -9,13 +9,13 @@ import pl.stosik.paygrind.core.services.billing.BillingService
 import pl.stosik.paygrind.core.services.customer.CustomerService
 import pl.stosik.paygrind.core.services.invoice.InvoiceService
 import pl.stosik.paygrind.core.services.job_lock.JobLockService
+import pl.stosik.paygrind.data.adapter.driven.CustomerRepository
 import pl.stosik.paygrind.data.adapter.driven.InvoiceRepository
 import pl.stosik.paygrind.data.adapter.driven.JobLockRepository
-import pl.stosik.paygrind.data.exposed
+import pl.stosik.paygrind.data.jooq
 import pl.stosik.paygrind.messaging.kafka.KafkaConfiguration
 import pl.stosik.paygrind.models.infrastracture.ApplicationConfiguration
 import pl.stosik.paygrind.models.infrastracture.joinKeysFlattening
-import pl.stosik.paygrind.data.adapter.driven.CustomerRepository
 
 class Dependencies(
     val jobLockService: JobLockService,
@@ -27,12 +27,12 @@ class Dependencies(
 )
 
 suspend fun ResourceScope.dependencies(configuration: ApplicationConfiguration): Dependencies {
-    val exposedEngine = exposed(configuration = configuration.database)
+    val jooqEngine = jooq(configuration = configuration.database)
 
     // Data access layer
-    val customerRepository = CustomerRepository(db = exposedEngine)
-    val invoiceRepository = InvoiceRepository(db = exposedEngine)
-    val jobLockRepository = JobLockRepository(db = exposedEngine)
+    val customerRepository = CustomerRepository(db = jooqEngine)
+    val invoiceRepository = InvoiceRepository(db = jooqEngine)
+    val jobLockRepository = JobLockRepository(db = jooqEngine)
 
     // External system dependencies
     val paymentProvider = RandomPaymentProvider()
