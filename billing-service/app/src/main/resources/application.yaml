@@ -1,0 +1,28 @@
+cron:
+  expression: "0 0 0 1 * ?"
+  instanceId: "1"
+database:
+  url: jdbc:postgresql://localhost:5432/billing
+  username: stosik
+  password: billing
+kafka:
+  consumer:
+    group:
+      id: billing.group
+    bootstrap:
+      servers:
+        - localhost:9092
+    key:
+      deserializer: "org.apache.kafka.common.serialization.StringDeserializer"
+    auto:
+      offset:
+        reset: "earliest"
+    enable:
+      auto:
+        commit: false
+  producer:
+    key:
+      serializer: "org.apache.kafka.common.serialization.StringSerializer"
+    bootstrap:
+      servers:
+        - localhost:9092
