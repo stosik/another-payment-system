@@ -61,3 +61,39 @@ fun Project.dataLibs() {
         "implementation"("org.xerial:sqlite-jdbc:3.30.1")
     }
 }
+
+fun Project.ktorServerLibs() {
+    dependencies {
+        "implementation"("io.arrow-kt:suspendapp-ktor:${Versions.SUSPENDAPP_VERSION}")
+        "implementation"("io.ktor:ktor-server-content-negotiation:${Versions.KTOR_VERSION}")
+        "implementation"("io.ktor:ktor-serialization-kotlinx-json:${Versions.KTOR_VERSION}")
+        "implementation"("io.ktor:ktor-server-core:${Versions.KTOR_VERSION}")
+        "implementation"("io.ktor:ktor-server-default-headers:${Versions.KTOR_VERSION}")
+        "implementation"("io.ktor:ktor-server-netty:${Versions.KTOR_VERSION}")
+        "implementation"("io.ktor:ktor-server-metrics-micrometer:${Versions.KTOR_VERSION}")
+        "implementation"("io.ktor:ktor-server-resources:${Versions.KTOR_VERSION}")
+
+        "testImplementation"("io.ktor:ktor-server-tests:${Versions.KTOR_VERSION}")
+    }
+}
+
+fun Project.ktorClientLibs() {
+    dependencies {
+        "implementation"("io.ktor:ktor-client-core:${Versions.KTOR_VERSION}")
+        "implementation"("io.ktor:ktor-client-cio:${Versions.KTOR_VERSION}")
+        "implementation"("io.ktor:ktor-client-serialization:${Versions.KTOR_VERSION}")
+        "implementation"("io.ktor:ktor-client-content-negotiation:${Versions.KTOR_VERSION}")
+        "implementation"("io.ktor:ktor-client-resources:${Versions.KTOR_VERSION}")
+        "implementation"("io.ktor:ktor-serialization-kotlinx-json:${Versions.KTOR_VERSION}")
+    }
+}
+
+fun Project.metricLibs() {
+    dependencies {
+        "implementation"("com.sksamuel.cohort:cohort-core:${Versions.COHORT_VERSION}")
+        "implementation"("com.sksamuel.cohort:cohort-ktor2:${Versions.COHORT_VERSION}")
+        "implementation"("com.sksamuel.cohort:cohort-hikari:${Versions.COHORT_VERSION}")
+        "implementation"("com.sksamuel.cohort:cohort-kafka:${Versions.COHORT_VERSION}")
+        "implementation"("io.micrometer:micrometer-registry-prometheus:${Versions.PROMETHEUS_VERSION}")
+    }
+}

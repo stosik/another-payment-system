@@ -15,27 +15,11 @@ import pl.stosik.billing.data.adapter.driven.InvoiceTable
 import pl.stosik.billing.data.adapter.driven.JobLockTable
 import pl.stosik.billing.models.infrastracture.ApplicationConfiguration.DatabaseConfiguration
 import java.sql.Connection
+import javax.sql.DataSource
 
 private val tables = arrayOf(InvoiceTable, CustomerTable, JobLockTable)
 
-suspend fun ResourceScope.exposed(configuration: DatabaseConfiguration): Database {
-    val hikari = hikari(configuration)
-
-    return install({
-        Database
-            .connect(hikari)
-            .apply {
-                TransactionManager.manager.defaultIsolationLevel = Connection.TRANSACTION_SERIALIZABLE
-                transaction(this) {
-                    addLogger(StdOutSqlLogger)
-                    SchemaUtils.drop(*tables)
-                    SchemaUtils.create(*tables)
-                }
-            }
-    }) { p, _ -> TransactionManager.closeAndUnregister(p) }
-}
-
-private suspend fun ResourceScope.hikari(configuration: DatabaseConfiguration): HikariDataSource = autoCloseable {
+suspend fun ResourceScope.hikari(configuration: DatabaseConfiguration): HikariDataSource = autoCloseable {
     HikariDataSource(
         HikariConfig().apply {
             jdbcUrl = configuration.url
@@ -46,4 +30,19 @@ private suspend fun ResourceScope.hikari(configuration: DatabaseConfiguration): 
             transactionIsolation = "TRANSACTION_SERIALIZABLE"
         }
     )
+}
+
+suspend fun ResourceScope.exposed(dataSource: DataSource): Database {
+    return install({
+        Database
+            .connect(dataSource)
+            .apply {
+                TransactionManager.manager.defaultIsolationLevel = Connection.TRANSACTION_SERIALIZABLE
+                transaction(this) {
+                    addLogger(StdOutSqlLogger)
+                    SchemaUtils.drop(*tables)
+                    SchemaUtils.create(*tables)
+                }
+            }
+    }) { p, _ -> TransactionManager.closeAndUnregister(p) }
 }

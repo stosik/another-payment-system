@@ -1,13 +1,15 @@
 plugins {
     kotlin("jvm")
+    kotlin("plugin.serialization")
 }
 
 kotlinProject()
+ktorServerLibs()
+ktorClientLibs()
+metricLibs()
 
 dependencies {
     implementation(project(":core"))
     implementation(project(":models"))
-
-    implementation("io.javalin:javalin:${Versions.JAVALIN_VERSION}")
-    testImplementation("io.javalin:javalin-testtools:${Versions.JAVALIN_VERSION}")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.0")
 }
