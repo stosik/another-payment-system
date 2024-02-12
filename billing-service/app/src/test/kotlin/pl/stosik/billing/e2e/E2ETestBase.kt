@@ -1,7 +1,13 @@
 package pl.stosik.billing.e2e
 
 import arrow.fx.coroutines.continuations.ResourceScope
-import pl.stosik.billing.core.infrastracture.adapter.driven.*
+import pl.stosik.billing.app.parseConfiguration
+import pl.stosik.billing.core.infrastracture.adapter.driven.ChargeInvoiceSource
+import pl.stosik.billing.core.infrastracture.adapter.driven.CurrentTimeProvider
+import pl.stosik.billing.core.infrastracture.adapter.driven.EmailNotifier
+import pl.stosik.billing.core.infrastracture.adapter.driven.FixedCurrencyProvider
+import pl.stosik.billing.core.infrastracture.adapter.driven.RandomPaymentProvider
+import pl.stosik.billing.core.infrastracture.adapter.driven.TelemetryNotifier
 import pl.stosik.billing.core.infrastracture.adapter.driver.BillingJobScheduler
 import pl.stosik.billing.core.infrastracture.adapter.driver.ChargeInvoiceEventSink
 import pl.stosik.billing.core.infrastracture.adapter.driver.billingJobScheduler
@@ -10,14 +16,14 @@ import pl.stosik.billing.core.services.billing.BillingService
 import pl.stosik.billing.core.services.customer.CustomerService
 import pl.stosik.billing.core.services.invoice.InvoiceService
 import pl.stosik.billing.core.services.job_lock.JobLockService
+import pl.stosik.billing.data.adapter.driven.CustomerRepository
 import pl.stosik.billing.data.adapter.driven.InvoiceRepository
 import pl.stosik.billing.data.adapter.driven.JobLockRepository
 import pl.stosik.billing.data.exposed
+import pl.stosik.billing.data.hikari
 import pl.stosik.billing.models.infrastracture.ApplicationConfiguration.CronConfiguration
 import pl.stosik.billing.models.infrastracture.ApplicationConfiguration.KafkaConfiguration.BootstrapServers
 import pl.stosik.billing.models.infrastracture.joinKeysFlattening
-import pl.stosik.billing.app.parseConfiguration
-import pl.stosik.billing.data.adapter.driven.CustomerRepository
 import pl.stosik.messaging.kafka.KafkaConfiguration
 import java.time.LocalDateTime
 import java.time.ZoneId
@@ -33,7 +39,7 @@ data class TestDependencies(
 
 suspend fun ResourceScope.testDependencies(): TestDependencies {
 
-    val containers = AppContainers.apply { start() }
+    AppContainers.apply { start() }
     val currentTimeProvider = CurrentTimeProvider()
 
     val applicationConfiguration =
@@ -50,17 +56,13 @@ suspend fun ResourceScope.testDependencies(): TestDependencies {
                         password = AppContainers.dbPassword
                     ),
                     kafka = it.kafka.copy(
-                        consumer = it.kafka.consumer.copy(
-                            bootstrap = BootstrapServers(AppContainers.bootstrapServers)
-                        ),
-                        producer = it.kafka.producer.copy(
-                            bootstrap = BootstrapServers(AppContainers.bootstrapServers)
-                        )
+                        bootstrapServers = BootstrapServers(it.kafka.bootstrapServers.servers)
                     )
                 )
             }
 
-    val exposedEngine = exposed(applicationConfiguration.database)
+    val dataSource = hikari(applicationConfiguration.database)
+    val exposedEngine = exposed(dataSource)
 
     val customerRepository = CustomerRepository(db = exposedEngine)
     val invoiceRepository = InvoiceRepository(db = exposedEngine)

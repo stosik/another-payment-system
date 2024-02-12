@@ -29,6 +29,7 @@ data class ApplicationConfiguration(
     }
 
     data class KafkaConfiguration(
+        val bootstrapServers: BootstrapServers,
         val consumer: KafkaConsumerConfiguration,
         val producer: KafkaProducerConfiguration,
     ) : Configuration {
@@ -36,7 +37,6 @@ data class ApplicationConfiguration(
 
         data class KafkaConsumerConfiguration(
             val group: GroupId,
-            val bootstrap: BootstrapServers,
             val key: KeyDeserializer,
             val auto: AutoOffset,
             val enable: AutoCommit
@@ -56,10 +56,7 @@ data class ApplicationConfiguration(
             }
         }
 
-        data class KafkaProducerConfiguration(
-            val bootstrap: BootstrapServers,
-            val key: KeySerializer
-        ) : Configuration {
+        data class KafkaProducerConfiguration(val key: KeySerializer) : Configuration {
 
             override fun toMap() = this.asMap()
 

@@ -3,13 +3,13 @@ package pl.stosik.billing.app
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory
 import com.fasterxml.jackson.module.kotlin.registerKotlinModule
+import pl.stosik.billing.data.adapter.driven.CustomerRepository
 import pl.stosik.billing.data.adapter.driven.InvoiceRepository
 import pl.stosik.billing.models.domain.Currency
 import pl.stosik.billing.models.domain.InvoiceStatus
 import pl.stosik.billing.models.domain.Money
 import pl.stosik.billing.models.infrastracture.ApplicationConfiguration
 import pl.stosik.billing.models.infrastracture.ApplicationConfiguration.KafkaConfiguration.BootstrapServers
-import pl.stosik.billing.data.adapter.driven.CustomerRepository
 import java.io.InputStream
 import java.math.BigDecimal
 import java.util.*
@@ -36,15 +36,8 @@ fun parseConfiguration(file: InputStream?): ApplicationConfiguration {
                     password = System.getenv("DATABASE_PASSWORD") ?: it.database.password
                 ),
                 kafka = it.kafka.copy(
-                    consumer = it.kafka.consumer.copy(
-                        bootstrap = BootstrapServers(
-                            System.getenv("KAFKA_URL")?.split(",") ?: it.kafka.consumer.bootstrap.servers
-                        )
-                    ),
-                    producer = it.kafka.producer.copy(
-                        bootstrap = BootstrapServers(
-                            System.getenv("KAFKA_URL")?.split(",") ?: it.kafka.producer.bootstrap.servers
-                        )
+                    bootstrapServers = BootstrapServers(
+                        System.getenv("KAFKA_URL")?.split(",") ?: it.kafka.bootstrapServers.servers
                     )
                 )
             )

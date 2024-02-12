@@ -1,6 +1,15 @@
 package pl.stosik.billing.app
 
 import arrow.fx.coroutines.ResourceScope
+import arrow.fx.coroutines.autoCloseable
+import com.sksamuel.cohort.HealthCheck
+import com.sksamuel.cohort.HealthCheckRegistry
+import com.sksamuel.cohort.hikari.HikariConnectionsHealthCheck
+import com.sksamuel.cohort.kafka.KafkaClusterHealthCheck
+import io.micrometer.prometheus.PrometheusMeterRegistry
+import kotlinx.coroutines.Dispatchers
+import org.apache.kafka.clients.admin.AdminClient
+import org.apache.kafka.clients.admin.AdminClientConfig
 import pl.stosik.billing.core.infrastracture.adapter.driven.*
 import pl.stosik.billing.core.infrastracture.adapter.driver.ChargeInvoiceEventSink
 import pl.stosik.billing.core.port.driven.TimeProvider
@@ -13,9 +22,12 @@ import pl.stosik.billing.data.adapter.driven.CustomerRepository
 import pl.stosik.billing.data.adapter.driven.InvoiceRepository
 import pl.stosik.billing.data.adapter.driven.JobLockRepository
 import pl.stosik.billing.data.exposed
+import pl.stosik.billing.data.hikari
 import pl.stosik.billing.models.infrastracture.ApplicationConfiguration
 import pl.stosik.billing.models.infrastracture.joinKeysFlattening
+import pl.stosik.billing.rest.metrics.metricsRegistry
 import pl.stosik.messaging.kafka.KafkaConfiguration
+import kotlin.time.Duration.Companion.seconds
 
 class Dependencies(
     val jobLockService: JobLockService,
@@ -23,11 +35,17 @@ class Dependencies(
     val customerService: CustomerService,
     val billingService: BillingService,
     val billingProcessor: BillingProcessor,
+    val healthCheckRegistry: HealthCheckRegistry,
+    val metricsRegistry: PrometheusMeterRegistry,
     val timeProvider: TimeProvider
 )
 
 suspend fun ResourceScope.dependencies(configuration: ApplicationConfiguration): Dependencies {
-    val exposedEngine = exposed(configuration = configuration.database)
+    val dataSource = hikari(configuration = configuration.database)
+    val exposedEngine = exposed(dataSource = dataSource)
+
+    // Metrics
+    val metricsRegistry = metricsRegistry()
 
     // Data access layer
     val customerRepository = CustomerRepository(db = exposedEngine)
@@ -50,6 +68,7 @@ suspend fun ResourceScope.dependencies(configuration: ApplicationConfiguration):
         notifiers = listOf(EmailNotifier(), TelemetryNotifier())
     )
 
+    // Kafka
     val kafka = KafkaConfiguration.configure(
         consumerConfig = configuration.kafka.consumer.toMap().joinKeysFlattening(),
         producerConfig = configuration.kafka.producer.toMap().joinKeysFlattening(),
@@ -73,12 +92,26 @@ suspend fun ResourceScope.dependencies(configuration: ApplicationConfiguration):
 
     setupInitialData(customerRepository, invoiceRepository)
 
+    // Healthchecks
+    val kafkaHealthCheck = kafkaHealthCheck(configuration.kafka)
+    val healthCheckRegistry = HealthCheckRegistry(Dispatchers.Default) {
+        register(HikariConnectionsHealthCheck(dataSource, 1), 5.seconds)
+        register(kafkaHealthCheck, 5.seconds)
+    }
+
     return Dependencies(
         jobLockService = jobLockService,
         invoiceService = invoiceService,
         customerService = customerService,
         billingService = billingService,
         billingProcessor = billingProcessor,
+        healthCheckRegistry = healthCheckRegistry,
+        metricsRegistry = metricsRegistry,
         timeProvider = CurrentTimeProvider()
     )
 }
+
+context (ResourceScope) suspend fun kafkaHealthCheck(env: ApplicationConfiguration.KafkaConfiguration): HealthCheck =
+    KafkaClusterHealthCheck(autoCloseable {
+        AdminClient.create(mapOf(AdminClientConfig.BOOTSTRAP_SERVERS_CONFIG to env.bootstrapServers))
+    })

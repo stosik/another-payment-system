@@ -3,7 +3,6 @@ plugins {
 }
 
 kotlinProject()
-
 dataLibs()
 
 dependencies {
