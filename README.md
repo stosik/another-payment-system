@@ -14,7 +14,7 @@ Project serves as an example of implementation path from simple app to complex d
 
 ## Roadmap
 
-- PGE-1: Switch from Javelin to ktor
+- ~PGE-1: Switch from Javelin to ktor~
 - PGE-2: Implement Watchdog generic service for controlling scheduled jobs
 - PGE-3: Switch from Exposed to JOOQ + common library
 - PGE-4: Deploy billing service to Kubernetes

@@ -7,11 +7,11 @@ database:
   password: billing
 kafka:
   consumer:
-    group:
-      id: billing.group
     bootstrap:
       servers:
         - localhost:9092
+    group:
+      id: billing.group
     key:
       deserializer: "org.apache.kafka.common.serialization.StringDeserializer"
     auto:
@@ -21,8 +21,8 @@ kafka:
       auto:
         commit: false
   producer:
-    key:
-      serializer: "org.apache.kafka.common.serialization.StringSerializer"
     bootstrap:
       servers:
         - localhost:9092
+    key:
+      serializer: "org.apache.kafka.common.serialization.StringSerializer"
