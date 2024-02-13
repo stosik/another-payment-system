@@ -36,8 +36,15 @@ fun parseConfiguration(file: InputStream?): ApplicationConfiguration {
                     password = System.getenv("DATABASE_PASSWORD") ?: it.database.password
                 ),
                 kafka = it.kafka.copy(
-                    bootstrapServers = BootstrapServers(
-                        System.getenv("KAFKA_URL")?.split(",") ?: it.kafka.bootstrapServers.servers
+                    consumer = it.kafka.consumer.copy(
+                        bootstrap = BootstrapServers(
+                            System.getenv("KAFKA_URL")?.split(",") ?: it.kafka.consumer.bootstrap.servers
+                        )
+                    ),
+                    producer = it.kafka.producer.copy(
+                        bootstrap = BootstrapServers(
+                            System.getenv("KAFKA_URL")?.split(",") ?: it.kafka.producer.bootstrap.servers
+                        )
                     )
                 )
             )

@@ -56,7 +56,12 @@ suspend fun ResourceScope.testDependencies(): TestDependencies {
                         password = AppContainers.dbPassword
                     ),
                     kafka = it.kafka.copy(
-                        bootstrapServers = BootstrapServers(it.kafka.bootstrapServers.servers)
+                        consumer = it.kafka.consumer.copy(
+                            bootstrap = BootstrapServers(AppContainers.bootstrapServers)
+                        ),
+                        producer = it.kafka.producer.copy(
+                            bootstrap = BootstrapServers(AppContainers.bootstrapServers)
+                        )
                     )
                 )
             }

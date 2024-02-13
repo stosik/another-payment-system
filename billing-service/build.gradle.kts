@@ -27,7 +27,7 @@ allprojects {
                 "-Xopt-in=kotlin.OptIn",
                 "-Xopt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
                 "-Xopt-in=kotlinx.coroutines.ObsoleteCoroutinesApi",
-                "-opt-in=kotlinx.coroutines.FlowPreview",
+                "-opt-in=kotlinx.coroutines.FlowPreview"
             )
         }
     }

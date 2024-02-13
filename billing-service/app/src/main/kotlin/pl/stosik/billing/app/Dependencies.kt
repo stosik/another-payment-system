@@ -10,7 +10,12 @@ import io.micrometer.prometheus.PrometheusMeterRegistry
 import kotlinx.coroutines.Dispatchers
 import org.apache.kafka.clients.admin.AdminClient
 import org.apache.kafka.clients.admin.AdminClientConfig
-import pl.stosik.billing.core.infrastracture.adapter.driven.*
+import pl.stosik.billing.core.infrastracture.adapter.driven.ChargeInvoiceSource
+import pl.stosik.billing.core.infrastracture.adapter.driven.CurrentTimeProvider
+import pl.stosik.billing.core.infrastracture.adapter.driven.EmailNotifier
+import pl.stosik.billing.core.infrastracture.adapter.driven.FixedCurrencyProvider
+import pl.stosik.billing.core.infrastracture.adapter.driven.RandomPaymentProvider
+import pl.stosik.billing.core.infrastracture.adapter.driven.TelemetryNotifier
 import pl.stosik.billing.core.infrastracture.adapter.driver.ChargeInvoiceEventSink
 import pl.stosik.billing.core.port.driven.TimeProvider
 import pl.stosik.billing.core.services.billing.BillingProcessor
@@ -113,5 +118,5 @@ suspend fun ResourceScope.dependencies(configuration: ApplicationConfiguration):
 
 context (ResourceScope) suspend fun kafkaHealthCheck(env: ApplicationConfiguration.KafkaConfiguration): HealthCheck =
     KafkaClusterHealthCheck(autoCloseable {
-        AdminClient.create(mapOf(AdminClientConfig.BOOTSTRAP_SERVERS_CONFIG to env.bootstrapServers))
+        AdminClient.create(mapOf(AdminClientConfig.BOOTSTRAP_SERVERS_CONFIG to env.consumer.bootstrap.servers))
     })
